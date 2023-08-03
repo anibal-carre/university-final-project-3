@@ -103,7 +103,7 @@
                     </p>
                 </div>
 
-                <div class="w-full border">
+                <div class="w-full">
                     <a href="admin_permisos.php">
                         <span class="material-symbols-outlined">
                             arrow_back
@@ -111,8 +111,9 @@
                     </a>
                 </div>
 
-                <div class="w-full flex flex-row justify-center border mt-20">
-                    <div class="w-80 h-60 bg-white rounded-sm sm:w-96">
+                <div class="w-full flex flex-row justify-center  mt-20">
+                    <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
+
                         <form action="admin_permisos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
@@ -121,12 +122,14 @@
                             </div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Rol del Usuario</span>
-                                <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
                                     <option value="admin">Administrador</option>
                                     <option value="maestro">Maestro</option>
                                     <option value="alumno">Alumno</option>
                                 </select>
                             </div>
+
+                            <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
                             <input type="submit" value="Guardar cambios" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
                     </div>

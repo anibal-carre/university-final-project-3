@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        $sql = "SELECT id, rol FROM usuarios WHERE correo_electronico = ? AND contrasena = ?";
+        $sql = "SELECT id, rol, correo_electronico, nombre, apellido, direccion, fecha_nacimiento FROM usuarios WHERE correo_electronico = ? AND contrasena = ?";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
@@ -19,18 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->num_rows == 1) {
 
-            $stmt->bind_result($id, $rol, $nombre, $apellido);
+            $stmt->bind_result($id, $rol, $correo_electronico, $nombre, $apellido, $direccion, $fecha_nacimiento);
             $stmt->fetch();
             session_start();
             $_SESSION['id'] = $id;
             $_SESSION['rol'] = $rol;
+            $_SESSION['correo_electronico'] = $correo_electronico;
             $_SESSION['nombre'] = $nombre;
             $_SESSION['apellido'] = $apellido;
+            $_SESSION['direccion'] = $direccion;
+            $_SESSION['fecha_nacimiento'] = $fecha_nacimiento;
+
 
 
             switch ($rol) {
                 case 'ADMIN':
-
                     header('Location: views/admin/admin_dashboard.php');
                     break;
                 case 'MAESTRO':

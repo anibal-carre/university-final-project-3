@@ -17,7 +17,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="icon" href="../../assets/logo.jpg">
     <link rel="stylesheet" href="../../styles.css">
     <title>University | Alumno Clases</title>
@@ -27,7 +28,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -36,7 +38,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
             <div class="text-white flex flex-col p-5 gap-3">
                 <span style="font-size: 20px;">Alumno</span>
                 <!-- Nombre Dinamico -->
-                <span>Joao Silva</span>
+                <span><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellido'] ?></span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
@@ -74,15 +76,17 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                     <span class="material-symbols-outlined text-zinc-800">
                         menu
                     </span>
-                    <a href="alumno_dashboard.php"><span class="text-zinc-800 ">
+                    <a href="alumno_dashboard.php">
+                        <span class="text-zinc-800">
                             Home
-                        </span></a>
+                        </span>
+                    </a>
                 </div>
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <!-- Nombre Dinamico -->
-                        Joao Silva
+
+                        <?php echo $_SESSION['nombre'] ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
@@ -96,7 +100,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../../index.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -139,7 +144,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                         </thead>
                         <tbody>
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     1
                                 </td>
                                 <td class="px-6 py-4">
@@ -155,7 +161,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                                 </td>
                             </tr>
                             <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     2
                                 </td>
                                 <td class="px-6 py-4">
@@ -171,7 +178,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                                 </td>
                             </tr>
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     3
                                 </td>
                                 <td class="px-6 py-4">
@@ -187,7 +195,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                                 </td>
                             </tr>
                             <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     4
                                 </td>
                                 <td class="px-6 py-4">
@@ -203,7 +212,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                                 </td>
                             </tr>
                             <tr>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     5
                                 </td>
                                 <td class="px-6 py-4">
@@ -232,7 +242,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Selecciona la(s) Clase(s)</span>
-                                <select name="clases" id="clases" multiple class="h-20 border border-zinc-300 bg-white rounded-sm px-3 mb-2">
+                                <select name="clases" id="clases" multiple
+                                    class="h-20 border border-zinc-300 bg-white rounded-sm px-3 mb-2">
                                     <option onclick="agregarSeleccionadas()" value="math101">Math 101</option>
                                     <option onclick="agregarSeleccionadas()" value=" science201">Science 201</option>
                                     <option onclick="agregarSeleccionadas()" value=" history301">History 301</option>
@@ -244,7 +255,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
                             <ul id="clasesSeleccionadas" class="self-start"></ul>
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Inscribir" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            <input type="submit" value="Inscribir"
+                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
 
 
@@ -256,20 +268,20 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
     </div>
 
     <script>
-        function agregarSeleccionadas() {
-            const selectElement = document.getElementById("clases");
-            const clasesSeleccionadasElement = document.getElementById("clasesSeleccionadas");
-            const selectedOptions = Array.from(selectElement.selectedOptions);
+    function agregarSeleccionadas() {
+        const selectElement = document.getElementById("clases");
+        const clasesSeleccionadasElement = document.getElementById("clasesSeleccionadas");
+        const selectedOptions = Array.from(selectElement.selectedOptions);
 
-            selectedOptions.forEach(option => {
-                const li = document.createElement("li");
-                li.textContent = option.text;
-                clasesSeleccionadasElement.appendChild(li);
+        selectedOptions.forEach(option => {
+            const li = document.createElement("li");
+            li.textContent = option.text;
+            clasesSeleccionadasElement.appendChild(li);
 
-                option.style.display = "none";
-                option.selected = false;
-            });
-        }
+            option.style.display = "none";
+            option.selected = false;
+        });
+    }
     </script>
     <script src="../../resources/index.js"></script>
 </body>

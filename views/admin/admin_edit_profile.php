@@ -1,16 +1,44 @@
 <?php
+require_once '../../database/database.php';
 session_start();
 
-
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
-
     header("Location: ../../index.php");
     exit();
 }
 
 
-?>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    $idUsuario = $_SESSION['id'];
+
+    $nuevoEmail = $_POST['email'];
+    $nuevoNombre = $_POST['nombre'];
+    $nuevoApellido = $_POST['apellido'];
+    $nuevaContrasena = $_POST['contrasena'];
+    $nuevaDireccion = $_POST['direccion'];
+    $nuevaFechaNacimiento = $_POST['fecha_nacimiento'];
+
+
+    $sql = "UPDATE usuarios SET correo_electronico=?, nombre=?, apellido=?, contrasena=?, direccion=?, fecha_nacimiento=? WHERE id=?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("ssssssi", $nuevoEmail, $nuevoNombre, $nuevoApellido, $nuevaContrasena, $nuevaDireccion, $nuevaFechaNacimiento, $idUsuario);
+
+
+    if ($stmt->execute()) {
+
+        header("Location: admin_profile.php?success=true");
+    } else {
+
+        header("Location: admin_profile.php?error=true");
+    }
+
+
+    $stmt->close();
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,9 +47,9 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
-    <title>University | Admin Create Maestros</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <title>University | Admin Edit Profile</title>
 </head>
 
 <body>
@@ -130,13 +158,13 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 
             <div class="h-full pl-3">
                 <div class="w-full flex items-center justify-between pr-3 mt-4 mb-5">
-                    <h1 class="font-bold text-zinc-700 text-xl ">Agregar Maestro</h1>
-                    <p class="font-semibold text-sm text-zinc-700"><span class="text-myblue">Home</span> / Maestros
+                    <h1 class="font-bold text-zinc-700 text-xl ">Admin Edit Profile</h1>
+                    <p class="font-semibold text-sm text-zinc-700"><span class="text-myblue">Home</span> / Profile
                     </p>
                 </div>
 
                 <div class="w-full">
-                    <a href="admin_maestros.php">
+                    <a href="admin_profile.php">
                         <span class="material-symbols-outlined">
                             arrow_back
                         </span>
@@ -146,51 +174,55 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_maestros.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
+                            <form action="admin_edit_profile.php" method="post"
+                                class="flex flex-col p-5 gap-5 text-center relative z-20">
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Nueva Contraseña</span>
+                                    <input name="contrasena" required type="password"
+                                        placeholder="Ingresa nueva contraseña"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Clase Asignada</span>
-                                <select name="rol" id="rol"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="admin">Matematica</option>
-                                    <option value="maestro">Fisica</option>
-                                    <option value="alumno">Quimica</option>
-                                    <option value="ninguna">Ninguna</option>
-                                </select>
-                            </div>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Email</span>
+                                    <input name="email" required type="email" placeholder="Ingresa Email"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
 
-                            <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Crear Maestro"
-                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
-                        </form>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
+                                    <input name="nombre" type="text" placeholder="Ingresa Nombre"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
+                                    <input name="apellido" type="text" placeholder="Ingresa Apellido"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Dirección</span>
+                                    <input name="direccion" type="text" placeholder="Ingresa Dirección"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Fec. de Nacimiento</span>
+                                    <input name="fecha_nacimiento" type="date"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
+
+                                <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
+                                <input type="submit" value="Guardar cambios"
+                                    class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

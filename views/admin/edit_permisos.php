@@ -17,7 +17,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
     <title>University | Admin Edit Permisos</title>
@@ -27,14 +28,15 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col p-5 gap-3">
-                <span style="font-size: 20px;">admin</span>
+                <span style="font-size: 20px;"><?php echo $_SESSION['nombre'] . ' ' . $_SESSION['apellido']; ?></span>
                 <span>Administrador</span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
@@ -94,15 +96,32 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        Administrador
+                        <!-- Nombre Dinamico -->
+                        <?php echo $_SESSION['nombre'] ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
                             </span>
-                            <ul id="logout-menu" class="hidden absolute bg-white right-0 mt-6 py-2 rounded shadow">
-                                <a href="../../index.php">
-                                    <li class="px-4 py-2 text-zinc-700 cursor-pointer hover:bg-zinc-200">Logout</li>
+                            <ul id="logout-menu" class="hidden absolute bg-white right-0 mt-6 py-2 px-4 rounded shadow">
+
+                                <a href="admin_profile.php" class="flex items-center gap-2 hover:bg-zinc-200">
+                                    <span class="material-symbols-outlined">
+                                        account_circle
+                                    </span>
+                                    <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
+
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
+                                    <span class="material-symbols-outlined">
+                                        logout
+                                    </span>
+                                    <li class="px-2 py-2 text-zinc-700 cursor-pointer " style="color: #Dc2f19;">Logout
+                                    </li>
+
+                                </a>
+
+
                             </ul>
                     </li>
                     </ul>
@@ -131,11 +150,13 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Email del Usuario</span>
-                                <input type="email" placeholder="Email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input type="email" placeholder="Email"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Rol del Usuario</span>
-                                <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
+                                <select name="rol" id="rol"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
                                     <option value="admin">Administrador</option>
                                     <option value="maestro">Maestro</option>
                                     <option value="alumno">Alumno</option>
@@ -143,7 +164,8 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
                             </div>
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Guardar cambios" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            <input type="submit" value="Guardar cambios"
+                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
                     </div>
                 </div>

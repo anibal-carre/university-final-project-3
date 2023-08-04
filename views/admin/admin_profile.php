@@ -1,12 +1,11 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
-
     header("Location: ../../index.php");
     exit();
 }
+
 
 
 ?>
@@ -19,9 +18,9 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
-    <title>University | Admin Create Maestros</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <title>University | Admin Profile</title>
 </head>
 
 <body>
@@ -130,13 +129,13 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 
             <div class="h-full pl-3">
                 <div class="w-full flex items-center justify-between pr-3 mt-4 mb-5">
-                    <h1 class="font-bold text-zinc-700 text-xl ">Agregar Maestro</h1>
-                    <p class="font-semibold text-sm text-zinc-700"><span class="text-myblue">Home</span> / Maestros
+                    <h1 class="font-bold text-zinc-700 text-xl ">Admin Profile</h1>
+                    <p class="font-semibold text-sm text-zinc-700"><span class="text-myblue">Home</span> / Profile
                     </p>
                 </div>
 
                 <div class="w-full">
-                    <a href="admin_maestros.php">
+                    <a href="admin_dashboard.php">
                         <span class="material-symbols-outlined">
                             arrow_back
                         </span>
@@ -146,51 +145,44 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_maestros.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <div class="flex flex-col p-5 gap-5 text-center relative z-20">
+
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Email</span>
+                                <p class="self-start"><?php echo $_SESSION['correo_electronico'] ?></p>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Nombre</span>
+                                <p class="self-start"><?php echo $_SESSION['nombre'] ?></p>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Apellido</span>
+                                <p class="self-start"><?php echo $_SESSION['apellido'] ?></p>
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <p class="self-start"><?php echo $_SESSION['direccion'] ?></p>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Fec. de Nacimiento</span>
+                                <p class="self-start"><?php echo $_SESSION['fecha_nacimiento'] ?></p>
                             </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Clase Asignada</span>
-                                <select name="rol" id="rol"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="admin">Matematica</option>
-                                    <option value="maestro">Fisica</option>
-                                    <option value="alumno">Quimica</option>
-                                    <option value="ninguna">Ninguna</option>
-                                </select>
-                            </div>
+
+
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Crear Maestro"
-                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
-                        </form>
+
+
+                            <a href="admin_edit_profile.php" class="self-end">
+                                <button
+                                    class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md ">Editar</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

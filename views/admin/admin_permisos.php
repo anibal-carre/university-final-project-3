@@ -1,11 +1,23 @@
+<?php
+session_start();
+
+
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
+
+    header("Location: ../../index.php");
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
 
@@ -16,8 +28,7 @@
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
-                    height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -129,8 +140,7 @@
                         </thead>
                         <tbody>
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     1
                                 </th>
                                 <td class="px-6 py-4">
@@ -143,16 +153,13 @@
                                     Activo
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="edit_permisos.php"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span
-                                            class="material-symbols-outlined">
+                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
                                             edit_square
                                         </span></a>
                                 </td>
                             </tr>
                             <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     2
                                 </th>
                                 <td class="px-6 py-4">
@@ -165,16 +172,13 @@
                                     $1999
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="edit_permisos.php"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span
-                                            class="material-symbols-outlined">
+                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
                                             edit_square
                                         </span></a>
                                 </td>
                             </tr>
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     3
                                 </th>
                                 <td class="px-6 py-4">
@@ -187,16 +191,13 @@
                                     $99
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="edit_permisos.php"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span
-                                            class="material-symbols-outlined">
+                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
                                             edit_square
                                         </span></a>
                                 </td>
                             </tr>
                             <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     4
                                 </th>
                                 <td class="px-6 py-4">
@@ -209,16 +210,13 @@
                                     $799
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="edit_permisos.php"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span
-                                            class="material-symbols-outlined">
+                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
                                             edit_square
                                         </span></a>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     5
                                 </th>
                                 <td class="px-6 py-4">
@@ -231,9 +229,7 @@
                                     $999
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="edit_permisos.php"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span
-                                            class="material-symbols-outlined">
+                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
                                             edit_square
                                         </span></a>
                                 </td>

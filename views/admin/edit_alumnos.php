@@ -1,11 +1,23 @@
+<?php
+session_start();
+
+
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
+
+    header("Location: ../../index.php");
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
     <title>University | Admin Edit Alumnos</title>
@@ -15,8 +27,7 @@
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
-                    height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -120,32 +131,27 @@
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">DNI</span>
-                                <input type="text" placeholder="Ingresa la matricula"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input type="text" placeholder="Ingresa la matricula" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input type="email" placeholder="Ingresa email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input type="text" placeholder="Ingresa nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input type="text" placeholder="Ingresa apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input type="text" placeholder="Ingresa dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
@@ -155,8 +161,7 @@
 
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Guardar cambios"
-                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            <input type="submit" value="Guardar cambios" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
                     </div>
                 </div>

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
-    <title>University | Admin Create Alumnos</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <title>University | Alumno Profile</title>
 </head>
 
 <body>
@@ -21,50 +21,37 @@
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col p-5 gap-3">
-                <span style="font-size: 20px;">admin</span>
-                <span>Administrador</span>
+                <span style="font-size: 20px;">Alumno</span>
+                <!-- Nombre Dinamico -->
+                <span>Joao Silva</span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col gap-5 p-5">
-                <p>Menu Administración</p>
+                <p>Menu Alumno</p>
+
 
                 <div>
-                    <a href="admin_permisos.php" class="flex items-center gap-3 ">
-                        <span class="material-symbols-outlined ">
-                            folder_supervised
-                        </span>
-                        <span>Permisos</span>
-                    </a>
-                </div>
-
-                <div>
-                    <a href="admin_maestros.php" class="flex items-center gap-3 ">
+                    <a href="alumno_calificaciones.php" class="flex items-center gap-3 ">
                         <span class="material-symbols-outlined">
-                            interactive_space
+                            task
                         </span>
-                        <span>Maestros</span>
+
+                        <span>Ver Calificaciones</span>
                     </a>
                 </div>
 
                 <div>
-                    <a href="admin_alumnos.php" class="flex items-center gap-3 ">
-                        <span class="material-symbols-outlined">
-                            school
-                        </span>
-
-                        <span>Alumnos</span>
-                    </a>
-                </div>
-
-                <div>
-                    <a href="admin_clases.php" class="flex items-center gap-3 ">
+                    <a href="alumno_clases.php" class="flex items-center gap-3 ">
                         <span class="material-symbols-outlined">
                             tv_gen
                         </span>
-                        <span>Clases</span>
+
+                        <span>Administra tus Clases</span>
                     </a>
                 </div>
+
+
             </div>
         </aside>
         <div class="w-full flex flex-col">
@@ -74,22 +61,38 @@
                     <span class="material-symbols-outlined text-zinc-800">
                         menu
                     </span>
-                    <a href="admin_dashboard.php"><span class="text-zinc-800 ">
+                    <a href="alumno_dashboard.php"><span class="text-zinc-800 ">
                             Home
                         </span></a>
                 </div>
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        Administrador
+                        <!-- Nombre Dinamico -->
+                        Joao Silva
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
                             </span>
-                            <ul id="logout-menu" class="hidden absolute bg-white right-0 mt-6 py-2 rounded shadow">
-                                <a href="../../index.php">
-                                    <li class="px-4 py-2 text-zinc-700 cursor-pointer hover:bg-zinc-200">Logout</li>
+                            <ul id="logout-menu" class="hidden absolute bg-white right-0 mt-6 py-2 px-4 rounded shadow">
+
+                                <a href="alumno_profile.php" class="flex items-center gap-2 hover:bg-zinc-200">
+                                    <span class="material-symbols-outlined">
+                                        account_circle
+                                    </span>
+                                    <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
+
+                                <a href="../../index.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                    <span class="material-symbols-outlined">
+                                        logout
+                                    </span>
+                                    <li class="px-2 py-2 text-zinc-700 cursor-pointer " style="color: #Dc2f19;">Logout
+                                    </li>
+
+                                </a>
+
+
                             </ul>
                     </li>
                     </ul>
@@ -98,13 +101,13 @@
 
             <div class="h-full pl-3">
                 <div class="w-full flex items-center justify-between pr-3 mt-4 mb-5">
-                    <h1 class="font-bold text-zinc-700 text-xl ">Agregar Alumno</h1>
-                    <p class="font-semibold text-sm text-zinc-700"><span class="text-myblue">Home</span> / Alumnos
+                    <h1 class="font-bold text-zinc-700 text-xl ">Alumno Profile</h1>
+                    <p class="font-semibold text-sm text-zinc-700"><span class="text-myblue">Home</span> / Profile
                     </p>
                 </div>
 
                 <div class="w-full">
-                    <a href="admin_alumnos.php">
+                    <a href="alumno_dashboard.php">
                         <span class="material-symbols-outlined">
                             arrow_back
                         </span>
@@ -114,42 +117,48 @@
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_alumnos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <div class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">DNI</span>
-                                <input type="text" placeholder="Ingresa la matricula" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Matricula</span>
+                                <p class="self-start">572373794</p>
+                            </div>
+
+
+                            <div class="flex flex-col">
+                                <span class="font-bold text-zinc-700 self-start">Email</span>
+                                <p class="self-start">joseferreira@gmail.com</p>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Nombre</span>
+                                <p class="self-start">Joao</p>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
-
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Apellido</span>
+                                <p class="self-start">Silva</p>
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <p class="self-start">5 Longview Place</p>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Fec. de Nacimiento</span>
+                                <p class="self-start">02/07/1967</p>
                             </div>
 
 
+
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Crear Alumno" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
-                        </form>
+
+
+                            <a href="alumno_edit_profile.php" class="self-end">
+                                <button class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md ">Editar</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

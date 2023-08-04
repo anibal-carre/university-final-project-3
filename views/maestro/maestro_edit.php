@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
-    <title>University | Admin Edit Alumnos</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <title>University | Maestro Edit Alumnos</title>
 </head>
 
 <body>
@@ -23,31 +23,13 @@
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col p-5 gap-3">
-                <span style="font-size: 20px;">admin</span>
-                <span>Administrador</span>
+                <span style="font-size: 20px;">Maestro</span>
+                <span>maestro</span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col gap-5 p-5">
-                <p>Menu Administración</p>
-
-                <div>
-                    <a href="admin_permisos.php" class="flex items-center gap-3 ">
-                        <span class="material-symbols-outlined ">
-                            folder_supervised
-                        </span>
-                        <span>Permisos</span>
-                    </a>
-                </div>
-
-                <div>
-                    <a href="admin_maestros.php" class="flex items-center gap-3 ">
-                        <span class="material-symbols-outlined">
-                            interactive_space
-                        </span>
-                        <span>Maestros</span>
-                    </a>
-                </div>
+                <p>Menu Maestros</p>
 
                 <div>
                     <a href="admin_alumnos.php" class="flex items-center gap-3 ">
@@ -56,15 +38,6 @@
                         </span>
 
                         <span>Alumnos</span>
-                    </a>
-                </div>
-
-                <div>
-                    <a href="admin_clases.php" class="flex items-center gap-3 ">
-                        <span class="material-symbols-outlined">
-                            tv_gen
-                        </span>
-                        <span>Clases</span>
                     </a>
                 </div>
             </div>
@@ -76,22 +49,38 @@
                     <span class="material-symbols-outlined text-zinc-800">
                         menu
                     </span>
-                    <a href="admin_dashboard.php"><span class="text-zinc-800 ">
+                    <a href="maestro_dashboard.php"><span class="text-zinc-800 ">
                             Home
                         </span></a>
                 </div>
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        Administrador
+                        Maestro
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
                             </span>
-                            <ul id="logout-menu" class="hidden absolute bg-white right-0 mt-6 py-2 rounded shadow">
-                                <a href="../../index.php">
-                                    <li class="px-4 py-2 text-zinc-700 cursor-pointer hover:bg-zinc-200">Logout</li>
+                            <ul id="logout-menu" class="hidden absolute bg-white right-0 mt-6 py-2 px-4 rounded shadow">
+
+                                <a href="maestro_profile.php" class="flex items-center gap-2 hover:bg-zinc-200">
+                                    <span class="material-symbols-outlined">
+                                        account_circle
+                                    </span>
+                                    <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
+
+                                <a href="../../index.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
+                                    <span class="material-symbols-outlined">
+                                        logout
+                                    </span>
+                                    <li class="px-2 py-2 text-zinc-700 cursor-pointer " style="color: #Dc2f19;">Logout
+                                    </li>
+
+                                </a>
+
+
                             </ul>
                     </li>
                     </ul>
@@ -106,7 +95,7 @@
                 </div>
 
                 <div class="w-full">
-                    <a href="admin_alumnos.php">
+                    <a href="maestro_alumnos.php">
                         <span class="material-symbols-outlined">
                             arrow_back
                         </span>
@@ -116,7 +105,7 @@
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_alumnos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form action="maestro_alumnos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">DNI</span>
@@ -125,33 +114,14 @@
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email"
+                                <span class="font-bold text-zinc-700 self-start">Calificación</span>
+                                <input type="email" placeholder="Ingresa Calificación"
                                     class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
 
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>

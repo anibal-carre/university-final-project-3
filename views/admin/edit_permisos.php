@@ -1,4 +1,5 @@
 <?php
+require_once "../../database/database.php";
 session_start();
 
 
@@ -8,7 +9,33 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
     exit();
 }
 
+$user_id = $_SESSION['id'];
 
+$sql = "SELECT  nombre, apellido FROM usuarios WHERE user_id = '$user_id'";
+
+
+$result = mysqli_query($conexion, $sql);
+
+
+if (!$result) {
+    die("Error en la consulta: " . mysqli_error($conexion));
+}
+
+
+$row = mysqli_fetch_assoc($result);
+
+
+if ($row) {
+
+
+    $nombre = $row['nombre'];
+    $apellido = $row['apellido'];
+} else {
+    echo "No se encontraron datos para el usuario con el ID proporcionado.";
+}
+
+
+mysqli_close($conexion);
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +63,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col p-5 gap-3">
-                <span style="font-size: 20px;"><?php echo $_SESSION['nombre'] . ' ' . $_SESSION['apellido']; ?></span>
+                <span style="font-size: 20px;"><?php echo $nombre. ' ' . $apellido ?></span>
                 <span>Administrador</span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
@@ -97,7 +124,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
                         <!-- Nombre Dinamico -->
-                        <?php echo $_SESSION['nombre'] ?>
+                        <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
@@ -157,9 +184,9 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
                                 <span class="font-bold text-zinc-700 self-start">Rol del Usuario</span>
                                 <select name="rol" id="rol"
                                     class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="admin">Administrador</option>
-                                    <option value="maestro">Maestro</option>
-                                    <option value="alumno">Alumno</option>
+                                    <option value="admin">ADMIN</option>
+                                    <option value="maestro">MAESTRO</option>
+                                    <option value="alumno">ALUMNO</option>
                                 </select>
                             </div>
 

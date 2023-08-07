@@ -8,10 +8,36 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 }
 
 
+$user_id = $_SESSION['id'];
+
+$sql = "SELECT  nombre, apellido FROM usuarios WHERE user_id = '$user_id'";
+
+
+$result = mysqli_query($conexion, $sql);
+
+
+if (!$result) {
+    die("Error en la consulta: " . mysqli_error($conexion));
+}
+
+
+$row = mysqli_fetch_assoc($result);
+
+
+if ($row) {
+
+
+    $nombre = $row['nombre'];
+    $apellido = $row['apellido'];
+} else {
+    echo "No se encontraron datos para el usuario con el ID proporcionado.";
+}
+
+
+mysqli_close($conexion);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     $idUsuario = $_SESSION['id'];
-
     $nuevoEmail = $_POST['email'];
     $nuevoNombre = $_POST['nombre'];
     $nuevoApellido = $_POST['apellido'];
@@ -19,22 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nuevaDireccion = $_POST['direccion'];
     $nuevaFechaNacimiento = $_POST['fecha_nacimiento'];
 
+    $sql = "UPDATE usuarios SET correo_electronico='$nuevoEmail', nombre='$nuevoNombre', apellido='$nuevoApellido', contrasena='$nuevaContrasena', direccion='$nuevaDireccion', fecha_nacimiento='$nuevaFechaNacimiento' WHERE user_id='$idUsuario'";
 
-    $sql = "UPDATE usuarios SET correo_electronico=?, nombre=?, apellido=?, contrasena=?, direccion=?, fecha_nacimiento=? WHERE id=?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("ssssssi", $nuevoEmail, $nuevoNombre, $nuevoApellido, $nuevaContrasena, $nuevaDireccion, $nuevaFechaNacimiento, $idUsuario);
-
-
-    if ($stmt->execute()) {
-
-        header("Location: admin_profile.php?success=true");
+    if (mysqli_query($conexion, $sql)) {
+        header("Location: admin_profile.php");
     } else {
-
-        header("Location: admin_profile.php?error=true");
+        echo "Error al actualizar los datos: " . mysqli_error($conexion);
     }
 
 
-    $stmt->close();
+    mysqli_close($conexion);
 }
 
 
@@ -45,8 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="icon" href="../../assets/logo.jpg">
     <link rel="stylesheet" href="../../styles.css">
     <title>University | Admin Edit Profile</title>
@@ -56,15 +75,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
-                    height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col p-5 gap-3">
-                <span style="font-size: 20px;"><?php echo $_SESSION['nombre'] . ' ' . $_SESSION['apellido']; ?></span>
+                <span style="font-size: 20px;"><?php echo $nombre . ' ' . $apellido; ?></span>
                 <span>Administrador</span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
@@ -125,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
                         <!-- Nombre Dinamico -->
-                        <?php echo $_SESSION['nombre'] ?>
+                        <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
@@ -139,8 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
-                                    style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -176,51 +193,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                            <form action="admin_edit_profile.php" method="post"
-                                class="flex flex-col p-5 gap-5 text-center relative z-20">
+                            <form action="admin_edit_profile.php" method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
 
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Nueva Contraseña</span>
-                                    <input name="contrasena" required type="password"
-                                        placeholder="Ingresa nueva contraseña"
-                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="contrasena" required type="password" placeholder="Ingresa nueva contraseña" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Email</span>
-                                    <input name="email" required type="email" placeholder="Ingresa Email"
-                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="email" required type="email" placeholder="Ingresa Email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                    <input name="nombre" type="text" placeholder="Ingresa Nombre"
-                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="nombre" type="text" placeholder="Ingresa Nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                    <input name="apellido" type="text" placeholder="Ingresa Apellido"
-                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="apellido" type="text" placeholder="Ingresa Apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                    <input name="direccion" type="text" placeholder="Ingresa Dirección"
-                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="direccion" type="text" placeholder="Ingresa Dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Fec. de Nacimiento</span>
-                                    <input name="fecha_nacimiento" type="date"
-                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="fecha_nacimiento" type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                                <input type="submit" value="Guardar cambios"
-                                    class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                                <input type="submit" value="Guardar cambios" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                             </form>
                         </div>
                     </div>

@@ -1,13 +1,63 @@
 <?php
+require_once '../../database/database.php';
 session_start();
 
-
 if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'MAESTRO') {
-
     header("Location: ../../index.php");
     exit();
 }
 
+
+$user_id = $_SESSION['id'];
+
+$sql = "SELECT  nombre, apellido FROM usuarios WHERE user_id = '$user_id'";
+
+
+$result = mysqli_query($conexion, $sql);
+
+
+if (!$result) {
+    die("Error en la consulta: " . mysqli_error($conexion));
+}
+
+
+$row = mysqli_fetch_assoc($result);
+
+
+if ($row) {
+
+
+    $nombre = $row['nombre'];
+    $apellido = $row['apellido'];
+} else {
+    echo "No se encontraron datos para el usuario con el ID proporcionado.";
+}
+
+
+
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $idUsuario = $_SESSION['id'];
+    $nuevoEmail = $_POST['email'];
+    $nuevoNombre = $_POST['nombre'];
+    $nuevoApellido = $_POST['apellido'];
+    $nuevaContrasena = $_POST['contrasena'];
+    $nuevaDireccion = $_POST['direccion'];
+    $nuevaFechaNacimiento = $_POST['fecha_nacimiento'];
+
+    $sql = "UPDATE usuarios SET correo_electronico='$nuevoEmail', nombre='$nuevoNombre', apellido='$nuevoApellido', contrasena='$nuevaContrasena', direccion='$nuevaDireccion', fecha_nacimiento='$nuevaFechaNacimiento' WHERE user_id='$idUsuario'";
+
+    if (mysqli_query($conexion, $sql)) {
+        header("Location: maestro_profile.php");
+    } else {
+        echo "Error al actualizar los datos: " . mysqli_error($conexion);
+    }
+
+
+    mysqli_close($conexion);
+}
 
 ?>
 
@@ -37,7 +87,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'MAESTRO') {
 
             <div class="text-white flex flex-col p-5 gap-3">
                 <span style="font-size: 20px;">Maestro</span>
-                <span><?php echo $_SESSION['nombre'] . " " . $_SESSION['apellido'] ?></span>
+                <span><?php echo $nombre . " " . $apellido ?></span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
@@ -74,7 +124,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'MAESTRO') {
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <?php echo $_SESSION['nombre'] ?>
+                        <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
                                 expand_more
@@ -125,30 +175,44 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'MAESTRO') {
 
                         <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                            <form action="maestro_profile.php"
+                            <form action="maestro_edit_profile.php" method="post"
                                 class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-zinc-700 self-start">Email</span>
-                                    <input type="email" placeholder="Ingresa Email"
+                                    <span class="font-bold text-zinc-700 self-start">Nueva Contraseña</span>
+                                    <input name="contrasena" required type="password"
+                                        placeholder="Ingresa nueva contraseña"
                                         class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-zinc-700 self-start">Nombre</span>
-                                    <input type="text" placeholder="Ingresa Nombre"
+                                    <span class="font-bold text-zinc-700 self-start">Email</span>
+                                    <input name="email" required type="email" placeholder="Ingresa Email"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
+                                    <input name="nombre" type="text" placeholder="Ingresa Nombre"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
+                                    <input name="apellido" type="text" placeholder="Ingresa Apellido"
                                         class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                    <input type="text" placeholder="Ingresa Dirección"
+                                    <input name="direccion" type="text" placeholder="Ingresa Dirección"
                                         class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <span class="font-bold text-zinc-700 self-start">Fec. de Nacimiento</span>
-                                    <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                    <input name="fecha_nacimiento" type="date"
+                                        class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                                 </div>
 
                                 <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        $sql = "SELECT id, rol, correo_electronico, nombre, apellido, direccion, fecha_nacimiento FROM usuarios WHERE correo_electronico = ? AND contrasena = ?";
+        $sql = "SELECT user_id, rol, correo_electronico, nombre, apellido, direccion, fecha_nacimiento FROM usuarios WHERE correo_electronico = ? AND contrasena = ?";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("ss", $email, $password);
         $stmt->execute();

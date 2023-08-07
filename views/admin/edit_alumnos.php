@@ -35,7 +35,50 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+//---------------------------------------------------------------------------
+
+
+if (isset($_GET['id'])) {
+    $alumno_id = $_GET['id'];
+
+
+
+    $alumno_id = $conexion->real_escape_string($alumno_id);
+
+
+    $consulta = "SELECT * FROM usuarios WHERE user_id = '$alumno_id' AND rol = 'ALUMNO'";
+    $resultado = $conexion->query($consulta);
+
+
+    if ($resultado->num_rows === 1) {
+        $alumno = $resultado->fetch_assoc();
+
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $nombre = $_POST["nombre"];
+            $apellido = $_POST['apellido'];
+            $matricula = $_POST["matricula"];
+            $direccion = $_POST["direccion"];
+            $fecha_nacimiento = $_POST["fecha_nacimiento"];
+
+
+            $actualizar = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', matricula = '$matricula', direccion = '$direccion', fecha_nacimiento = '$fecha_nacimiento' WHERE user_id = '$alumno_id' AND rol = 'ALUMNO'";
+            if ($conexion->query($actualizar) === TRUE) {
+
+
+                header("Location: admin_alumnos.php");
+            } else {
+                echo "Error al actualizar: ";
+            }
+        }
+    } else {
+        echo "Alumno no encontrado.";
+    }
+
+
+    $conexion->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -170,36 +213,33 @@ mysqli_close($conexion);
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_alumnos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">DNI</span>
-                                <input type="text" placeholder="Ingresa la matricula" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="matricula" type="text" placeholder="Ingresa la matricula" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
+
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="nombre" type="text" placeholder="Ingresa nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="apellido" type="text" placeholder="Ingresa apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="direccion" type="text" placeholder="Ingresa dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="fecha_nacimiento" type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
 

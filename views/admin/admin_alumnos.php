@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+
 
 ?>
 
@@ -45,7 +45,8 @@ mysqli_close($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="icon" href="../../assets/logo.jpg">
     <link rel="stylesheet" href="../../styles.css">
     <title>University | Admin Alumnos</title>
@@ -55,7 +56,8 @@ mysqli_close($conexion);
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -137,7 +139,8 @@ mysqli_close($conexion);
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -162,7 +165,8 @@ mysqli_close($conexion);
 
                 <div class="w-full flex items-center justify-between mb-3 pr-3">
                     <span class="font-semibold text-zinc-700">Información de Alumnos</span>
-                    <a href="create_alumnos.php"><button class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                    <a href="create_alumnos.php"><button
+                            class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                             Agregar Alumno
                         </button></a>
 
@@ -172,6 +176,9 @@ mysqli_close($conexion);
                 <div>
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+
+
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     #
@@ -197,166 +204,52 @@ mysqli_close($conexion);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    1
-                                </th>
-                                <td class="px-6 py-4">
-                                    12345678-A
-                                </td>
-                                <td class="px-6 py-4">
-                                    John Doe
-                                </td>
-                                <td class="px-6 py-4">
-                                    john.doe@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    123 Main St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1990-05-15
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_alumnos.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_alumnos.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    2
-                                </th>
-                                <td class="px-6 py-4">
-                                    87654321-B
-                                </td>
-                                <td class="px-6 py-4">
-                                    Jane Smith
-                                </td>
-                                <td class="px-6 py-4">
-                                    jane.smith@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    456 Elm St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1988-12-10
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_alumnos.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_alumnos.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    3
-                                </th>
-                                <td class="px-6 py-4">
-                                    56789123-C
-                                </td>
-                                <td class="px-6 py-4">
-                                    Mike Wilson
-                                </td>
-                                <td class="px-6 py-4">
-                                    mike.wilson@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    789 Oak St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1995-08-22
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_alumnos.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_alumnos.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    4
-                                </th>
-                                <td class="px-6 py-4">
-                                    23456789-D
-                                </td>
-                                <td class="px-6 py-4">
-                                    Sarah Johnson
-                                </td>
-                                <td class="px-6 py-4">
-                                    sarah.johnson@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    101 Pine St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1987-03-01
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_alumnos.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_alumnos.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    5
-                                </th>
-                                <td class="px-6 py-4">
-                                    45678901-E
-                                </td>
-                                <td class="px-6 py-4">
-                                    Alex Brown
-                                </td>
-                                <td class="px-6 py-4">
-                                    alex.brown@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    222 Maple Ave
-                                </td>
-                                <td class="px-6 py-4">
-                                    1998-11-05
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_alumnos.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_alumnos.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php
+                            $sql = "SELECT * FROM usuarios WHERE rol = 'ALUMNO'";
+                            $result = $conexion->query($sql);
+
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">';
+    echo '    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">';
+    echo '        ' . $row['user_id'];
+    echo '    </th>';
+    echo '    <td class="px-6 py-4">';
+    echo '        ' . $row['matricula'];
+    echo '    </td>';
+    echo '    <td class="px-6 py-4">';
+    echo '        ' . $row['nombre'];
+    echo '    </td>';
+    echo '    <td class="px-6 py-4">';
+    echo '        ' . $row['correo_electronico'];
+    echo '    </td>';
+    echo '    <td class="px-6 py-4">';
+    echo '        ' . $row['direccion'];
+    echo '    </td>';
+    echo '    <td class="px-6 py-4">';
+    echo '        ' . $row['fecha_nacimiento'];
+    echo '    </td>';
+    echo '    <td class="px-6 py-4 flex gap-5 items-center">';
+    echo '        <a href="edit_alumnos.php?id=' . $row['user_id'] . '" class="font-medium text-blue-600 dark:text-blue-500">';
+    echo '            <span class="material-symbols-outlined">';
+    echo '                edit_square';
+    echo '            </span>';
+    echo '        </a>';
+    echo '        <a href="delete_alumnos.php?id=' . $row['user_id'] . '" class="font-medium">';
+    echo '            <span class="material-symbols-outlined" style="color: #Dc2f19;">';
+    echo '                delete';
+    echo '            </span>';
+    echo '        </a>';
+    echo '    </td>';
+    echo '</tr>';
+
+                                }
+                            } else {
+                                echo "<tr><td colspan='7'>No hay alumnos registrados.</td></tr>";
+                            }
+                            ?>
+
                         </tbody>
                     </table>
                 </div>

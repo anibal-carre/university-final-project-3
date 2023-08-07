@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +44,8 @@ mysqli_close($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
 
@@ -55,7 +56,8 @@ mysqli_close($conexion);
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -137,7 +139,8 @@ mysqli_close($conexion);
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -173,110 +176,34 @@ mysqli_close($conexion);
                                 <th scope="col" class="px-6 py-3">
                                     Permiso
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Estado
-                                </th>
+
                                 <th scope="col" class="px-6 py-3">
                                     Acciones
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    1
-                                </th>
-                                <td class="px-6 py-4">
-                                    john.doe@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    Administrador
-                                </td>
-                                <td class="px-6 py-4">
-                                    Activo
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
-                                            edit_square
-                                        </span></a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    2
-                                </th>
-                                <td class="px-6 py-4">
-                                    jane.smith@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    Laptop PC
-                                </td>
-                                <td class="px-6 py-4">
-                                    $1999
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
-                                            edit_square
-                                        </span></a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    3
-                                </th>
-                                <td class="px-6 py-4">
-                                    mike.wilson@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    Accessories
-                                </td>
-                                <td class="px-6 py-4">
-                                    $99
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
-                                            edit_square
-                                        </span></a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    4
-                                </th>
-                                <td class="px-6 py-4">
-                                    sarah.johnson@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    Phone
-                                </td>
-                                <td class="px-6 py-4">
-                                    $799
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
-                                            edit_square
-                                        </span></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    5
-                                </th>
-                                <td class="px-6 py-4">
-                                    alex.brown@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    Wearables
-                                </td>
-                                <td class="px-6 py-4">
-                                    $999
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="edit_permisos.php" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><span class="material-symbols-outlined">
-                                            edit_square
-                                        </span></a>
-                                </td>
-                            </tr>
+                            <?php
+
+                            $sql = "SELECT user_id, correo_electronico, rol FROM usuarios";
+
+                            $result = $conexion->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">';
+                                    echo '<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">' . $row["user_id"] . '</th>';
+                                    echo '<td class="px-6 py-4">' . $row["correo_electronico"] . '</td>';
+                                    echo '<td class="px-6 py-4">' . '<span class=" p-3 bg-blue-500 text-white rounded" >' . $row["rol"] . '</span>' . '</td>';
+                                    echo '<td class="px-6 py-4">';
+                                    echo '<a href="edit_permisos.php?user_id=' . $row["user_id"] . '" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">';
+                                    echo '<span class="material-symbols-outlined">edit_square</span></a>';
+                                    echo '</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                            ?>
+
                         </tbody>
                     </table>
                 </div>

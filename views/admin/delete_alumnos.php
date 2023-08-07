@@ -1,4 +1,5 @@
 <?php
+require_once '../../database/database.php';
 session_start();
 
 
@@ -8,20 +9,24 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
     exit();
 }
 
+if (isset($_GET['id'])) {
+    $alumno_id = $_GET['id'];
 
-?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 
-<body>
-    <h1>Delete Alumnos</h1>
-</body>
+    $alumno_id = $conexion->real_escape_string($alumno_id);
 
-</html>
+
+    $eliminar = "DELETE FROM usuarios WHERE user_id = '$alumno_id' AND rol = 'ALUMNO'";
+    if ($conexion->query($eliminar) === TRUE) {
+
+        header("Location: admin_alumnos.php");
+        exit();
+    } else {
+        echo "Error al eliminar el alumno ";
+    }
+
+
+    $conexion->close();
+}

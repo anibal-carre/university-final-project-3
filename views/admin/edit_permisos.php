@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+
 ?>
 
 <!DOCTYPE html>
@@ -44,8 +44,7 @@ mysqli_close($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
     <title>University | Admin Edit Permisos</title>
@@ -55,15 +54,14 @@ mysqli_close($conexion);
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
-                    height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
 
             <div class="text-white flex flex-col p-5 gap-3">
-                <span style="font-size: 20px;"><?php echo $nombre. ' ' . $apellido ?></span>
+                <span style="font-size: 20px;"><?php echo $nombre . ' ' . $apellido ?></span>
                 <span>Administrador</span>
             </div>
             <div style="width: 100%; height: 1px; background-color: #4c5157; "></div>
@@ -138,8 +136,7 @@ mysqli_close($conexion);
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
-                                    style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -172,28 +169,50 @@ mysqli_close($conexion);
 
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
+                        <?php
 
-                        <form action="admin_permisos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_id"]) && isset($_POST["rol"])) {
+                            $user_id = $_POST["user_id"];
+                            $rol = $_POST["rol"];
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Email del Usuario</span>
-                                <input type="email" placeholder="Email"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Rol del Usuario</span>
-                                <select name="rol" id="rol"
-                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="admin">ADMIN</option>
-                                    <option value="maestro">MAESTRO</option>
-                                    <option value="alumno">ALUMNO</option>
-                                </select>
-                            </div>
 
-                            <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Guardar cambios"
-                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
-                        </form>
+                            $sql = "UPDATE usuarios SET rol = '$rol' WHERE user_id = $user_id";
+                            $conexion->query($sql);
+                            echo "Rol actualizado con éxito.";
+                        }
+
+
+                        if (isset($_GET["user_id"])) {
+                            $user_id = $_GET["user_id"];
+                            $sql = "SELECT user_id, correo_electronico, rol FROM usuarios WHERE user_id = $user_id";
+                            $result = $conexion->query($sql);
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+                        ?>
+                                <form action="edit_permisos.php" method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                                    <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-zinc-700 self-start">Email del Usuario</span>
+                                        <input type="email" placeholder="Email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3" value=<?php echo $row['correo_electronico'] ?> disabled>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-zinc-700 self-start">Rol del Usuario</span>
+                                        <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
+                                            <option value="ADMIN">ADMIN</option>
+                                            <option value="MAESTRO">MAESTRO</option>
+                                            <option value="ALUMNO">ALUMNO</option>
+                                        </select>
+                                    </div>
+
+                                    <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
+                                    <input type="submit" value="Guardar cambios" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                                </form>
+
+                        <?php
+                            }
+                        }
+                        $conexion->close();
+                        ?>
                     </div>
                 </div>
             </div>

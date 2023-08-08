@@ -210,40 +210,42 @@ if ($row) {
 
 
                             if ($result->num_rows > 0) {
+                                $contador = 1;
                                 while ($row = $result->fetch_assoc()) {
                                     echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">';
-    echo '    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">';
-    echo '        ' . $row['user_id'];
-    echo '    </th>';
-    echo '    <td class="px-6 py-4">';
-    echo '        ' . $row['matricula'];
-    echo '    </td>';
-    echo '    <td class="px-6 py-4">';
-    echo '        ' . $row['nombre'];
-    echo '    </td>';
-    echo '    <td class="px-6 py-4">';
-    echo '        ' . $row['correo_electronico'];
-    echo '    </td>';
-    echo '    <td class="px-6 py-4">';
-    echo '        ' . $row['direccion'];
-    echo '    </td>';
-    echo '    <td class="px-6 py-4">';
-    echo '        ' . $row['fecha_nacimiento'];
-    echo '    </td>';
-    echo '    <td class="px-6 py-4 flex gap-5 items-center">';
-    echo '        <a href="edit_alumnos.php?id=' . $row['user_id'] . '" class="font-medium text-blue-600 dark:text-blue-500">';
-    echo '            <span class="material-symbols-outlined">';
-    echo '                edit_square';
-    echo '            </span>';
-    echo '        </a>';
-    echo '        <a href="delete_alumnos.php?id=' . $row['user_id'] . '" class="font-medium">';
-    echo '            <span class="material-symbols-outlined" style="color: #Dc2f19;">';
-    echo '                delete';
-    echo '            </span>';
-    echo '        </a>';
-    echo '    </td>';
-    echo '</tr>';
+                                    echo '    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">';
+                                    echo '        ' . $contador;
+                                    echo '    </th>';
+                                    echo '    <td class="px-6 py-4">';
+                                    echo '        ' . $row['matricula'];
+                                    echo '    </td>';
+                                    echo '    <td class="px-6 py-4">';
+                                    echo '        ' . $row['nombre'] . " " . $row['apellido'];
+                                    echo '    </td>';
+                                    echo '    <td class="px-6 py-4">';
+                                    echo '        ' . $row['correo_electronico'];
+                                    echo '    </td>';
+                                    echo '    <td class="px-6 py-4">';
+                                    echo '        ' . $row['direccion'];
+                                    echo '    </td>';
+                                    echo '    <td class="px-6 py-4">';
+                                    echo '        ' . $row['fecha_nacimiento'];
+                                    echo '    </td>';
+                                    echo '    <td class="px-6 py-4 flex gap-5 items-center">';
+                                    echo '        <a href="edit_alumnos.php?id=' . $row['user_id'] . '" class="font-medium text-blue-600 dark:text-blue-500">';
+                                    echo '            <span class="material-symbols-outlined">';
+                                    echo '                edit_square';
+                                    echo '            </span>';
+                                    echo '        </a>';
+                                    echo '        <a href="delete_alumnos.php?id=' . $row['user_id'] . '" class="font-medium">';
+                                    echo '            <span class="material-symbols-outlined" style="color: #Dc2f19;">';
+                                    echo '                delete';
+                                    echo '            </span>';
+                                    echo '        </a>';
+                                    echo '    </td>';
+                                    echo '</tr>';
 
+                                    $contador++;
                                 }
                             } else {
                                 echo "<tr><td colspan='7'>No hay alumnos registrados.</td></tr>";

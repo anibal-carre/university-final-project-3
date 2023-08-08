@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $matricula = $_POST['matricula'];
     $nombre = $_POST["nombre"];
+    $apellido = $_POST['apellido'];
     $email = $_POST["email"];
     $password = $_POST['password'];
     $direccion = $_POST["direccion"];
@@ -48,12 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rol = "ALUMNO";
 
 
-    $insertar = "INSERT INTO usuarios (matricula, nombre, correo_electronico, contrasena, direccion, fecha_nacimiento, rol) VALUES ('$matricula', '$nombre', '$email', '$password', '$direccion', '$fecha_nacimiento', '$rol')";
+    $insertar = "INSERT INTO usuarios (matricula, nombre, apellido, correo_electronico, contrasena, direccion, fecha_nacimiento, rol) VALUES ('$matricula', '$nombre', '$apellido', '$email', '$password', '$direccion', '$fecha_nacimiento', '$rol')";
     if ($conexion->query($insertar) === TRUE) {
 
         echo "Nuevo alumno creado exitosamente";
     } else {
-        echo "Error al crear el alumno: ";
+        echo "Error al crear el alumno";
     }
 
 

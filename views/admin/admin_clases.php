@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+
 ?>
 
 <!DOCTYPE html>
@@ -190,136 +190,52 @@ mysqli_close($conexion);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    1
-                                </th>
-                                <td class="px-6 py-4">
-                                    Math 101
-                                </td>
-                                <td class="px-6 py-4">
-                                    John Doe
-                                </td>
-                                <td class="px-6 py-4">
-                                    30
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_clases.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_clases.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    2
-                                </th>
-                                <td class="px-6 py-4">
-                                    Science 201
-                                </td>
-                                <td class="px-6 py-4">
-                                    Jane Smith
-                                </td>
-                                <td class="px-6 py-4">
-                                    25
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_clases.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_clases.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    3
-                                </th>
-                                <td class="px-6 py-4">
-                                    History 301
-                                </td>
-                                <td class="px-6 py-4">
-                                    Mike Wilson
-                                </td>
-                                <td class="px-6 py-4">
-                                    20
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_clases.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_clases.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    4
-                                </th>
-                                <td class="px-6 py-4">
-                                    English 401
-                                </td>
-                                <td class="px-6 py-4">
-                                    Sarah Johnson
-                                </td>
-                                <td class="px-6 py-4">
-                                    15
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_clases.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_clases.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    5
-                                </th>
-                                <td class="px-6 py-4">
-                                    Physics 501
-                                </td>
-                                <td class="px-6 py-4">
-                                    Alex Brown
-                                </td>
-                                <td class="px-6 py-4">
-                                    18
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_clases.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_clases.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
+
+
+                            <?php
+
+
+                            $consulta = "SELECT m.nombre, m.id_materia, CONCAT(u.nombre, ' ', u.apellido) AS profesor, COUNT(mi.id_alumno) AS num_alumnos FROM materias m
+                            LEFT JOIN usuarios u ON m.id_materia = u.materia_asignada AND u.rol = 'MAESTRO'
+                            LEFT JOIN materias_inscritas mi ON m.id_materia = mi.id_materia
+                            GROUP BY m.nombre, u.nombre";
+                            $resultado = $conexion->query($consulta);
+
+
+                            if ($resultado->num_rows > 0) {
+
+
+                                $contador = 1;
+                                while ($row = $resultado->fetch_assoc()) {
+
+                                    echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">' . $contador . '</td>
+        <td class="px-6 py-4">' . $row['nombre'] . '</td>
+        <td class="px-6 py-4">' . $row['profesor'] . '</td>
+        <td class="px-6 py-4">' . $row['num_alumnos'] . '</td>
+        <td class="px-6 py-4 flex gap-5 items-center">
+            <a href="edit_clases.php?id=' . $row['id_materia'] . '" class="font-medium text-blue-600 dark:text-blue-500 ">
+                <span class="material-symbols-outlined">
+                    edit_square
+                </span>
+            </a>
+            <a href="delete_clases.php?id=' . $row['id_materia'] . '" class="font-medium" class="font-medium">
+                <span class="material-symbols-outlined" style="color: #Dc2f19;">
+                    delete
+                </span>
+            </a>
+        </td>
+      </tr>';
+                                    $contador++;
+                                }
+                            } else {
+                                echo "No hay materias disponibles.";
+                            }
+
+
+                            $conexion->close();
+                            ?>
+
                         </tbody>
                     </table>
                 </div>

@@ -35,7 +35,47 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+//----------------------------------------------
+
+
+if (isset($_GET['id'])) {
+    $maestro_id = $_GET['id'];
+
+
+
+    $maestro_id = $conexion->real_escape_string($maestro_id);
+
+
+    $consulta = "SELECT * FROM usuarios WHERE user_id = '$maestro_id' AND rol = 'MAESTRO'";
+    $resultado = $conexion->query($consulta);
+
+
+    if ($resultado->num_rows === 1) {
+        $maestro = $resultado->fetch_assoc();
+
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $nombre = $_POST["nombre"];
+            $apellido = $_POST['apellido'];
+            $direccion = $_POST["direccion"];
+            $fecha_nacimiento = $_POST["fecha_nacimiento"];
+            $materia = $_POST['materia'];
+
+
+            $actualizar = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', direccion = '$direccion', fecha_nacimiento = '$fecha_nacimiento', materia_asignada = '$materia' WHERE user_id = '$maestro_id' AND rol = 'MAESTRO'";
+            if ($conexion->query($actualizar) === TRUE) {
+
+
+                header("Location: admin_maestros.php");
+            } else {
+                echo "Error al actualizar: ";
+            }
+        }
+    } else {
+        echo "Alumno no encontrado.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -169,38 +209,56 @@ mysqli_close($conexion);
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_maestros.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form action="" method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
-                            <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
-                            </div>
+
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="nombre" type="text" placeholder="Nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="apellido" type="text" placeholder="Apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="direccion" type="text" placeholder="Dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="fecha_nacimiento" type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Clase Asignada</span>
-                                <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="admin">Matematica</option>
-                                    <option value="maestro">Fisica</option>
-                                    <option value="alumno">Quimica</option>
+                                <select name="materia" id="materias" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
+
+                                    <?php
+                                    $consulta = "SELECT m.id_materia, m.nombre AS materia
+                                FROM materias m
+                                LEFT JOIN usuarios u ON m.id_materia = u.materia_asignada
+                                WHERE u.materia_asignada IS NULL";
+                                    $resultado = $conexion->query($consulta);
+
+
+                                    if ($resultado->num_rows > 0) {
+
+                                        while ($row = $resultado->fetch_assoc()) {
+                                            echo '<option value="' . $row['id_materia'] . '">' . $row['materia'] . '</option>';
+                                        }
+
+                                        echo '<option value="0" >Ninguna</option>';
+                                    } else {
+                                        echo "No hay materias sin profesores asignados.";
+                                    }
+
+
+                                    $conexion->close();
+                                    ?>
+
                                 </select>
                             </div>
 

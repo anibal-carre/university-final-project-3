@@ -35,7 +35,31 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+//--------------------------------------------------------
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+
+    $nombre = $_POST["nombre"];
+    $apellido = $_POST['apellido'];
+    $email = $_POST["email"];
+    $password = $_POST['password'];
+    $direccion = $_POST["direccion"];
+    $fecha_nacimiento = $_POST["fecha_nacimiento"];
+    $materia = $_POST['materia'];
+    $rol = "MAESTRO";
+
+
+    $insertar = "INSERT INTO usuarios ( nombre, apellido, correo_electronico, contrasena, direccion, fecha_nacimiento, rol, materia_asignada) VALUES ( '$nombre', '$apellido', '$email', '$password', '$direccion', '$fecha_nacimiento', '$rol', '$materia')";
+    if ($conexion->query($insertar) === TRUE) {
+
+        echo "Nuevo maestro creado exitosamente";
+        header("Location: admin_maestros.php");
+    }
+
+
+    $conexion->close();
+}
 
 ?>
 
@@ -45,7 +69,8 @@ mysqli_close($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
     <title>University | Admin Create Maestros</title>
@@ -55,7 +80,8 @@ mysqli_close($conexion);
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -137,7 +163,8 @@ mysqli_close($conexion);
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -171,44 +198,79 @@ mysqli_close($conexion);
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_maestros.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form action="" method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Correo Electronico</span>
-                                <input type="email" placeholder="Ingresa email" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="email" type="email" placeholder="Ingresa email"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <span class="font-bold text-zinc-700 self-start">Contraseña</span>
+                                <input name="password" type="password" placeholder="Ingresa email"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Nombre(s)</span>
-                                <input type="text" placeholder="Ingresa nombre" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="nombre" type="text" placeholder="Ingresa nombre"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Apellido(s)</span>
-                                <input type="text" placeholder="Ingresa apellido" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="apellido" type="text" placeholder="Ingresa apellido"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Dirección</span>
-                                <input type="text" placeholder="Ingresa dirección" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="direccion" type="text" placeholder="Ingresa dirección"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Fecha de nacimiento</span>
-                                <input type="date" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input name="fecha_nacimiento" type="date"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
                             <div class="flex flex-col">
+
+
                                 <span class="font-bold text-zinc-700 self-start">Clase Asignada</span>
-                                <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="admin">Matematica</option>
-                                    <option value="maestro">Fisica</option>
-                                    <option value="alumno">Quimica</option>
-                                    <option value="ninguna">Ninguna</option>
+
+                                <select name="materia" id="materias"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
+
+                                    <?php
+                                    $consulta = "SELECT m.id_materia, m.nombre AS materia
+                            FROM materias m
+                            LEFT JOIN usuarios u ON m.id_materia = u.materia_asignada
+                            WHERE u.materia_asignada IS NULL";
+                                    $resultado = $conexion->query($consulta);
+
+
+                                    if ($resultado->num_rows > 0) {
+
+                                        while ($row = $resultado->fetch_assoc()) {
+                                            echo '<option value="' . $row['id_materia'] . '">' . $row['materia'] . '</option>';
+                                        }
+                                        echo '<option value="0" >Ninguna</option>';
+                                    } else {
+                                        echo "No hay materias sin profesores asignados.";
+                                    }
+
+
+                                    $conexion->close();
+                                    ?>
+
                                 </select>
                             </div>
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Crear Maestro" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            <input type="submit" value="Crear Maestro"
+                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
                     </div>
                 </div>

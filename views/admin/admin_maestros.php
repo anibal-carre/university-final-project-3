@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,6 +171,8 @@ mysqli_close($conexion);
                 <div>
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     #
@@ -196,166 +198,70 @@ mysqli_close($conexion);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    1
-                                </th>
-                                <td class="px-6 py-4">
-                                    John Doe
-                                </td>
-                                <td class="px-6 py-4">
-                                    john.doe@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    123 Main St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1990-05-15
-                                </td>
-                                <td class="px-6 py-4">
-                                    Class A
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_maestros.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_maestros.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    2
-                                </th>
-                                <td class="px-6 py-4">
-                                    Jane Smith
-                                </td>
-                                <td class="px-6 py-4">
-                                    jane.smith@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    456 Elm St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1988-12-10
-                                </td>
-                                <td class="px-6 py-4">
-                                    Class B
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_maestros.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_maestros.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    3
-                                </th>
-                                <td class="px-6 py-4">
-                                    Mike Wilson
-                                </td>
-                                <td class="px-6 py-4">
-                                    mike.wilson@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    789 Oak St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1995-08-22
-                                </td>
-                                <td class="px-6 py-4">
-                                    Class C
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_maestros.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_maestros.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    4
-                                </th>
-                                <td class="px-6 py-4">
-                                    Sarah Johnson
-                                </td>
-                                <td class="px-6 py-4">
-                                    sarah.johnson@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    101 Pine St
-                                </td>
-                                <td class="px-6 py-4">
-                                    1987-03-01
-                                </td>
-                                <td class="px-6 py-4">
-                                    Class D
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_maestros.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_maestros.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    5
-                                </th>
-                                <td class="px-6 py-4">
-                                    Alex Brown
-                                </td>
-                                <td class="px-6 py-4">
-                                    alex.brown@example.com
-                                </td>
-                                <td class="px-6 py-4">
-                                    222 Maple Ave
-                                </td>
-                                <td class="px-6 py-4">
-                                    1998-11-05
-                                </td>
-                                <td class="px-6 py-4">
-                                    Class E
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-                                    <a href="edit_maestros.php" class="font-medium text-blue-600 dark:text-blue-500 ">
-                                        <span class="material-symbols-outlined">
-                                            edit_square
-                                        </span>
-                                    </a>
-                                    <a href="delete_maestros.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            delete
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php
+
+
+
+                            $consulta = "SELECT u.user_id, u.nombre, u.apellido, u.correo_electronico, u.direccion, u.fecha_nacimiento, m.nombre AS materia_asignada 
+                            FROM usuarios u 
+                            LEFT JOIN materias m ON u.materia_asignada = m.id_materia 
+                            WHERE u.rol = 'MAESTRO'";
+
+                            $resultado = $conexion->query($consulta);
+
+
+                            if ($resultado->num_rows > 0) {
+
+                                $contador = 1;
+
+                                while ($profesor = $resultado->fetch_assoc()) {
+                                    echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                   ' . $contador . '
+                                    </th> 
+                                    <td class="px-6 py-4"> 
+                                    ' . $profesor['nombre'] . ' ' . $profesor['apellido'] . '
+                                     </td>
+                                     <td class="px-6 py-4">
+                                     ' . $profesor['correo_electronico'] . '
+                                     </td>
+                                     <td class="px-6 py-4" >
+                                     ' . $profesor['direccion'] . '
+                                     </td>
+                                     <td class="px-6 py-4">
+                                     ' . $profesor['fecha_nacimiento'] . '
+                                     </td>
+                                     <td class="px-6 py-4">
+                                     ' . $profesor['materia_asignada'] . '
+                                     </td>
+                                     <td class="px-6 py-4 flex gap-5 items-center">
+                                     <a href="edit_maestros.php?id=' . $profesor['user_id'] . ' " class="font-medium text-blue-600 dark:text-blue-500 ">
+                                     <span class="material-symbols-outlined">
+                                     edit_square
+                                     </span>
+                                     </a>
+                                     <a href="delete_maestros.php?id=' . $profesor['user_id'] . ' " class="font-medium">
+                                     <span class="material-symbols-outlined" style="color: #Dc2f19;">
+                                     delete
+                                     </span>
+                                     </a>
+
+                                     </td>
+
+                                     </tr>';
+
+                                    $contador++;
+                                }
+
+                                echo '</table>';
+                            } else {
+                                echo "No hay profesores registrados.";
+                            }
+
+
+                            $conexion->close();
+                            ?>
+
                         </tbody>
                     </table>
                 </div>

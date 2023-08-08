@@ -12,9 +12,6 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
 if (isset($_GET['id'])) {
     $alumno_id = $_GET['id'];
 
-
-
-
     $alumno_id = $conexion->real_escape_string($alumno_id);
 
 

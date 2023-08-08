@@ -34,8 +34,34 @@ if ($row) {
     echo "No se encontraron datos para el usuario con el ID proporcionado.";
 }
 
+//-----------------------------------------------------------------
 
-mysqli_close($conexion);
+$consulta_maestros = "SELECT user_id, CONCAT(nombre, ' ', apellido) AS nombre_completo FROM usuarios WHERE rol = 'MAESTRO' AND materia_asignada = 0 ";
+$resultado_profesores = $conexion->query($consulta_maestros);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre_materia = $_POST["nombre_materia"];
+    $profesor_asignado = $_POST["profesor"];
+
+    // Insertar la nueva materia en la tabla materias
+    $consulta_insertar_materia = "INSERT INTO materias (nombre) VALUES ('$nombre_materia')";
+    if ($conexion->query($consulta_insertar_materia) === TRUE) {
+        $id_materia_insertada = $conexion->insert_id;
+
+        // Asignar la materia al profesor seleccionado
+        $consulta_asignar_profesor = "UPDATE usuarios SET materia_asignada = $id_materia_insertada WHERE user_id = $profesor_asignado";
+        if ($conexion->query($consulta_asignar_profesor) === TRUE) {
+            header("Location: admin_clases.php");
+            exit;
+        } else {
+            echo "Error al asignar la materia al profesor";
+        }
+    } else {
+        echo "Error al crear la materia";
+    }
+}
+
+$conexion->close();
 ?>
 
 <!DOCTYPE html>
@@ -170,19 +196,24 @@ mysqli_close($conexion);
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="admin_clases.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form action="" method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Nombre de la Materia</span>
-                                <input type="text" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input required name="nombre_materia" type="text" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Maestros disponibles para la
                                     clase</span>
-                                <select name="rol" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
-                                    <option value="maestro1">Juan</option>
-                                    <option value="maestro2">Carlos</option>
-                                    <option value="maestro3">Jose</option>
+                                <select required name="profesor" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
+                                    <option value="" disabled selected>Seleccione un profesor</option>
+                                    <?php
+                                    while ($profesor = $resultado_profesores->fetch_assoc()) {
+                                        echo '<option value="' . $profesor['user_id'] . '">' . $profesor['nombre_completo'] . '</option>';
+                                    }
+                                    ?>
+
+                                    <option value="0">Ninguno</option>
                                 </select>
                             </div>
 

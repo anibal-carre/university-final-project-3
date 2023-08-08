@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conexion->query($insertar) === TRUE) {
 
         echo "Nuevo alumno creado exitosamente";
+        header("Location: admin_alumnos.php");
     } else {
         echo "Error al crear el alumno";
     }

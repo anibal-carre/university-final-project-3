@@ -35,7 +35,33 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+
+
+//----------------------------------------------
+$sql = "SELECT nombre, apellido FROM usuarios WHERE user_id = '$user_id'";
+$result = mysqli_query($conexion, $sql);
+
+if (!$result) {
+    die("Error en la consulta: " . mysqli_error($conexion));
+}
+
+$row = mysqli_fetch_assoc($result);
+
+if ($row) {
+    $nombre = $row['nombre'];
+    $apellido = $row['apellido'];
+} else {
+    echo "No se encontraron datos para el usuario con el ID proporcionado.";
+}
+
+$consulta_materias = "SELECT m.nombre AS nombre_materia, c.calificacion FROM materias_inscritas mi 
+                     INNER JOIN calificaciones c ON mi.id_alumno = c.id_alumno AND mi.id_materia = c.id_materia
+                     INNER JOIN materias m ON mi.id_materia = m.id_materia
+                     WHERE mi.id_alumno = '$user_id'";
+
+$resultado_materias = $conexion->query($consulta_materias);
+
+$conexion->close();
 ?>
 
 <!DOCTYPE html>
@@ -167,61 +193,27 @@ mysqli_close($conexion);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4">
-                                    Matematica
-                                </td>
-                                <td class="px-6 py-4">
-                                    95
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    2
-                                </td>
-                                <td class="px-6 py-4">
-                                    Fisica
-                                </td>
-                                <td class="px-6 py-4">
-                                    80
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    3
-                                </td>
-                                <td class="px-6 py-4">
-                                    Biologia
-                                </td>
-                                <td class="px-6 py-4">
-                                    75
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    4
-                                </td>
-                                <td class="px-6 py-4">
-                                    Informatica
-                                </td>
-                                <td class="px-6 py-4">
-                                    88
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    5
-                                </td>
-                                <td class="px-6 py-4">
-                                    Quimica
-                                </td>
-                                <td class="px-6 py-4">
-                                    92
-                                </td>
-                            </tr>
+
+
+                            <?php
+                            if ($resultado_materias->num_rows > 0) {
+                                $contador = 1;
+                                while ($materia = $resultado_materias->fetch_assoc()) {
+                                    echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">';
+                                    echo '<td class="px-6 py-4">' . $contador . '</td>';
+                                    echo '<td class="px-6 py-4">' . $materia['nombre_materia'] . '</td>';
+                                    echo '<td class="px-6 py-4">' . $materia['calificacion'] . '</td>';
+                                    echo '</tr>';
+
+                                    $contador++;
+                                }
+                            } else {
+                                echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">';
+                                echo '<td colspan="2" class="px-6 py-4 text-center text-gray-600 dark:text-white">No tienes calificaciones registradas.</td>';
+                                echo '</tr>';
+                            }
+                            ?>
+
                         </tbody>
                     </table>
                 </div>

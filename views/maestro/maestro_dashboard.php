@@ -36,6 +36,7 @@ if ($row) {
 
 
 mysqli_close($conexion);
+
 ?>
 
 <!DOCTYPE html>

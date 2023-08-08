@@ -35,7 +35,48 @@ if ($row) {
 }
 
 
-mysqli_close($conexion);
+//----------------------------------------
+
+$alumno_id = $_GET['alumno_id'];
+$materia_asignada_id = $_GET['materia_id'];
+
+$consulta_alumno = "SELECT u.matricula, u.nombre, u.apellido, c.calificacion FROM usuarios u 
+                    INNER JOIN materias_inscritas mi ON u.user_id = mi.id_alumno 
+                    INNER JOIN calificaciones c ON u.user_id = c.id_alumno AND mi.id_materia = c.id_materia 
+                    WHERE u.user_id = '$alumno_id' AND mi.id_materia = '$materia_asignada_id'";
+$resultado_alumno = $conexion->query($consulta_alumno);
+
+if (!$resultado_alumno) {
+    die("Error en la consulta: " . mysqli_error($conexion));
+}
+
+$alumno = mysqli_fetch_assoc($resultado_alumno);
+
+if ($alumno) {
+    $matricula_alumno = $alumno['matricula'];
+    $nombre_alumno = $alumno['nombre'];
+    $apellido_alumno = $alumno['apellido'];
+    $calificacion_actual = $alumno['calificacion'];
+} else {
+    echo "No se encontraron datos para el alumno con el ID proporcionado.";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nueva_calificacion = $_POST["nueva_calificacion"];
+
+    $consulta_actualizar_calificacion = "UPDATE calificaciones SET calificacion = '$nueva_calificacion' 
+                                         WHERE id_alumno = '$alumno_id' AND id_materia = '$materia_asignada_id'";
+
+    if ($conexion->query($consulta_actualizar_calificacion) === TRUE) {
+        header("Location: maestro_alumnos.php");
+        exit;
+    } else {
+        echo "Error al actualizar la calificación: " . mysqli_error($conexion);
+    }
+}
+
+$conexion->close();
+
 
 ?>
 
@@ -122,8 +163,6 @@ mysqli_close($conexion);
                                     </li>
 
                                 </a>
-
-
                             </ul>
                     </li>
                     </ul>
@@ -148,16 +187,22 @@ mysqli_close($conexion);
                 <div class="w-full flex flex-row justify-center  mt-20">
                     <div class="w-80 h-auto bg-white rounded-sm sm:w-96">
 
-                        <form action="maestro_alumnos.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form method="post" class="flex flex-col p-5 gap-5 text-center relative z-20">
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">DNI</span>
-                                <input type="text" placeholder="Ingresa la matricula" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Matrícula</span>
+                                <input type="text" value="<?php echo $matricula_alumno; ?>" class="h-10 border border-zinc-300 bg-white rounded-sm px-3" disabled>
+                            </div>
+
+
+                            <div class="flex flex-col">
+                                <span class="font-bold text-zinc-700 self-start">Calificación Actual</span>
+                                <input type="text" value="<?php echo $calificacion_actual; ?>" class="h-10 border border-zinc-300 bg-white rounded-sm px-3" disabled>
                             </div>
 
                             <div class="flex flex-col">
-                                <span class="font-bold text-zinc-700 self-start">Calificación</span>
-                                <input type="email" placeholder="Ingresa Calificación" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <span class="font-bold text-zinc-700 self-start">Nueva Calificación</span>
+                                <input type="number" step="0.01" min="0" max="100" name="nueva_calificacion" class="h-10 border border-zinc-300 bg-white rounded-sm px-3" required>
                             </div>
 
 

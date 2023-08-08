@@ -11,31 +11,73 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ALUMNO') {
 
 $user_id = $_SESSION['id'];
 
-$sql = "SELECT  nombre, apellido FROM usuarios WHERE user_id = '$user_id'";
-
-
+$sql = "SELECT nombre, apellido FROM usuarios WHERE user_id = '$user_id'";
 $result = mysqli_query($conexion, $sql);
-
 
 if (!$result) {
     die("Error en la consulta: " . mysqli_error($conexion));
 }
 
-
 $row = mysqli_fetch_assoc($result);
 
-
 if ($row) {
-
-
     $nombre = $row['nombre'];
     $apellido = $row['apellido'];
 } else {
     echo "No se encontraron datos para el usuario con el ID proporcionado.";
 }
 
+$consulta_materias_inscritas = "SELECT m.id_materia, m.nombre FROM materias m 
+                                INNER JOIN materias_inscritas mi ON m.id_materia = mi.id_materia 
+                                WHERE mi.id_alumno = '$user_id'";
+$resultado_materias_inscritas = $conexion->query($consulta_materias_inscritas);
 
-mysqli_close($conexion);
+$consulta_materias_disponibles = "SELECT id_materia, nombre FROM materias 
+                                  WHERE id_materia NOT IN 
+                                  (SELECT id_materia FROM materias_inscritas WHERE id_alumno = '$user_id')";
+$resultado_materias_disponibles = $conexion->query($consulta_materias_disponibles);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["materias_seleccionadas"])) {
+    $materias_seleccionadas = $_POST["materias_seleccionadas"];
+
+
+    $materias_values = implode("), ('$user_id', ", $materias_seleccionadas);
+
+    $consulta_insertar_materias = "INSERT INTO materias_inscritas (id_alumno, id_materia) VALUES ('$user_id', $materias_values)";
+    $conexion->query($consulta_insertar_materias);
+
+    $consulta_insertar_calificaciones = "INSERT INTO calificaciones (id_alumno, id_materia) VALUES ('$user_id', $materias_values)";
+    $conexion->query($consulta_insertar_calificaciones);
+
+
+    $consulta_materias_inscritas_usuario = "SELECT materias_inscritas FROM usuarios WHERE user_id = '$user_id'";
+    $resultado_materias_inscritas_usuario = $conexion->query($consulta_materias_inscritas_usuario);
+    $row = $resultado_materias_inscritas_usuario->fetch_assoc();
+    $materias_inscritas_actual = $row['materias_inscritas'];
+
+
+    $materias_inscritas_array = explode(",", $materias_inscritas_actual);
+
+    foreach ($materias_seleccionadas as $materia_id) {
+        if (!in_array($materia_id, $materias_inscritas_array)) {
+            $materias_inscritas_array[] = $materia_id;
+        }
+    }
+
+
+    $nuevas_materias_inscritas = implode(",", $materias_inscritas_array);
+
+
+    $consulta_actualizar_materias_inscritas = "UPDATE usuarios SET materias_inscritas = '$nuevas_materias_inscritas' WHERE user_id = '$user_id'";
+    $conexion->query($consulta_actualizar_materias_inscritas);
+
+    echo 'Actualización de inscripciones exitosa';
+    header("Location: alumno_clases.php");
+}
+
+$conexion->close();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -167,92 +209,25 @@ mysqli_close($conexion);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    1
-                                </td>
-                                <td class="px-6 py-4">
-                                    Matematica
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-
-                                    <a href="delete_clase.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            logout
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    2
-                                </td>
-                                <td class="px-6 py-4">
-                                    Fisica
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-
-                                    <a href="delete_clase.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            logout
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    3
-                                </td>
-                                <td class="px-6 py-4">
-                                    Biologia
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-
-                                    <a href="delete_clase.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            logout
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    4
-                                </td>
-                                <td class="px-6 py-4">
-                                    Informatica
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-
-                                    <a href="delete_clase.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            logout
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    5
-                                </td>
-                                <td class="px-6 py-4">
-                                    Quimica
-                                </td>
-                                <td class="px-6 py-4 flex gap-5 items-center">
-
-                                    <a href="delete_clase.php" class="font-medium">
-                                        <span class="material-symbols-outlined" style="color: #Dc2f19;">
-                                            logout
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
+                            <?php
+                            while ($row = $resultado_materias_inscritas->fetch_assoc()) {
+                                echo '<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">';
+                                echo '<td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">' . $row['id_materia'] . '</td>';
+                                echo '<td class="px-6 py-4">' . $row['nombre'] . '</td>';
+                                echo '<td class="px-6 py-4 flex gap-5 items-center">';
+                                echo '<a href="delete_clase.php?id=' . $row['id_materia'] . '" class="font-medium">';
+                                echo '<span class="material-symbols-outlined" style="color: #Dc2f19;">logout</span>';
+                                echo '</a>';
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+                            ?>
                         </tbody>
                     </table>
 
                     <div class="w-80 h-full bg-white rounded-sm sm:w-96">
 
-                        <form action="alumno_clases.php" class="flex flex-col p-5 gap-5 text-center relative z-20">
+                        <form action="alumno_clases.php" method="post" multiple class="flex flex-col p-5 gap-5 text-center relative z-20">
 
 
                             <span class="font-bold text-zinc-700 self-start">Materias para inscribir</span>
@@ -261,19 +236,25 @@ mysqli_close($conexion);
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Selecciona la(s) Clase(s)</span>
-                                <select name="clases" id="clases" multiple class="h-20 border border-zinc-300 bg-white rounded-sm px-3 mb-2">
-                                    <option onclick="agregarSeleccionadas()" value="math101">Math 101</option>
-                                    <option onclick="agregarSeleccionadas()" value=" science201">Science 201</option>
-                                    <option onclick="agregarSeleccionadas()" value=" history301">History 301</option>
-                                    <option onclick="agregarSeleccionadas()" value=" english401">English 401</option>
-                                    <option onclick="agregarSeleccionadas()" value=" physics501">Physics 501</option>
+                                <select name="materias_seleccionadas[]" id="clases" class="h-20 border border-zinc-300 bg-white rounded-sm px-3 mb-2">
+                                    <?php
+                                    if ($resultado_materias_disponibles->num_rows === 0) {
+                                        echo '<option disabled selected>No hay materias disponibles</option>';
+                                    } else {
+                                        while ($row = $resultado_materias_disponibles->fetch_assoc()) {
+                                            echo '<option value="' . $row['id_materia'] . '">' . $row['nombre'] . '</option>';
+                                        }
+                                    }
+
+
+                                    ?>
                                 </select>
 
                             </div>
                             <ul id="clasesSeleccionadas" class="self-start"></ul>
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Inscribir" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            <input type="submit" name="guardarMaterias" value="Inscribir" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
 
 
@@ -284,22 +265,7 @@ mysqli_close($conexion);
 
     </div>
 
-    <script>
-        function agregarSeleccionadas() {
-            const selectElement = document.getElementById("clases");
-            const clasesSeleccionadasElement = document.getElementById("clasesSeleccionadas");
-            const selectedOptions = Array.from(selectElement.selectedOptions);
 
-            selectedOptions.forEach(option => {
-                const li = document.createElement("li");
-                li.textContent = option.text;
-                clasesSeleccionadasElement.appendChild(li);
-
-                option.style.display = "none";
-                option.selected = false;
-            });
-        }
-    </script>
     <script src="../../resources/index.js"></script>
 </body>
 

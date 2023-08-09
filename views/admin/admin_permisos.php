@@ -124,7 +124,7 @@ if ($row) {
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <!-- Nombre Dinamico -->
+
                         <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">

@@ -44,7 +44,8 @@ mysqli_close($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="icon" href="../../assets/logo.jpg">
     <link rel="stylesheet" href="../../styles.css">
     <title>University | Admin Profile</title>
@@ -54,7 +55,8 @@ mysqli_close($conexion);
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -121,7 +123,7 @@ mysqli_close($conexion);
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <!-- Nombre Dinamico -->
+
                         <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
@@ -136,7 +138,8 @@ mysqli_close($conexion);
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -204,7 +207,8 @@ mysqli_close($conexion);
 
 
                             <a href="admin_edit_profile.php" class="self-end">
-                                <button class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md ">Editar</button>
+                                <button
+                                    class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md ">Editar</button>
                             </a>
                         </div>
                     </div>

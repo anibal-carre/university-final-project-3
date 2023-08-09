@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-//--------------------------------------------------------
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $insertar = "INSERT INTO usuarios ( nombre, apellido, correo_electronico, contrasena, direccion, fecha_nacimiento, rol, materia_asignada) VALUES ( '$nombre', '$apellido', '$email', '$password', '$direccion', '$fecha_nacimiento', '$rol', '$materia')";
     if ($conexion->query($insertar) === TRUE) {
 
-        echo "Nuevo maestro creado exitosamente";
+        
         header("Location: admin_maestros.php");
     }
 
@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <!-- Nombre Dinamico -->
+
                         <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">

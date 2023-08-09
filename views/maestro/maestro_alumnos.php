@@ -34,7 +34,6 @@ if ($row) {
     echo "No se encontraron datos para el usuario con el ID proporcionado.";
 }
 
-//----------------------------------------
 
 $consulta_maestro = "SELECT u.nombre, u.apellido, m.nombre AS materia_asignada 
                      FROM usuarios u 
@@ -51,7 +50,7 @@ $maestro = mysqli_fetch_assoc($resultado_maestro);
 
 $materia_asignada_nombre = $maestro['materia_asignada'];
 
-$materia_asignada_id = 0; // Por defecto, si no se encuentra ninguna materia asignada
+$materia_asignada_id = 0;
 
 $consulta_materia = "SELECT id_materia FROM materias WHERE nombre = '$materia_asignada_nombre'";
 $resultado_materia = $conexion->query($consulta_materia);
@@ -69,7 +68,7 @@ $resultado_alumnos = $conexion->query($consulta_alumnos);
 
 $conexion->close();
 
-//--------------------------------------
+
 ?>
 
 <!DOCTYPE html>
@@ -78,8 +77,7 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="icon" href="../../assets/logo.jpg">
     <link rel="stylesheet" href="../../styles.css">
     <title>University | Maestro Alumnos</title>
@@ -89,8 +87,7 @@ $conexion->close();
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
-                    height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -149,8 +146,7 @@ $conexion->close();
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
-                                    style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>

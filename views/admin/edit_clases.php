@@ -9,7 +9,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'ADMIN') {
     exit();
 }
 
-//--------------- OBTENER DATOS DE SESION ---------------------
+
 
 $user_id = $_SESSION['id'];
 
@@ -36,7 +36,7 @@ if ($row) {
     echo "No se encontraron datos para el usuario con el ID proporcionado.";
 }
 
-//------------------ EDITAR PROFESOR -------------------------
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id_materia = $_POST["id_materia"];
@@ -92,7 +92,8 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
     <title>University | Admin Edit Clase</title>
@@ -102,7 +103,8 @@ $conexion->close();
     <div class="w-screen h-screen flex bg-lightgray">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
+                    height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -169,7 +171,7 @@ $conexion->close();
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <!-- Nombre Dinamico -->
+
                         <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">
@@ -184,7 +186,8 @@ $conexion->close();
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
+                                    style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -224,11 +227,13 @@ $conexion->close();
                                 <span class="font-bold text-zinc-700 self-start">Nombre de la Materia</span>
                                 <input type="hidden" value=<?php echo $materia['id_materia'] ?> name="id_materia">
                                 <input type="hidden" value=<?php echo $materia['nombre'] ?> name="nombre_materia">
-                                <input disabled value=<?php echo $materia['nombre'] ?> type="text" class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
+                                <input disabled value=<?php echo $materia['nombre'] ?> type="text"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3">
                             </div>
                             <div class="flex flex-col">
                                 <span class="font-bold text-zinc-700 self-start">Maestro Asignado</span>
-                                <select name="profesor" id="rol" class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
+                                <select name="profesor" id="rol"
+                                    class="h-10 border border-zinc-300 bg-white rounded-sm px-3 mb-5">
                                     <?php
                                     while ($profesor = $resultado_profesores->fetch_assoc()) {
                                         $selected = ($profesor['user_id'] == $materia['materia_asignada']) ? "selected" : "";
@@ -239,7 +244,8 @@ $conexion->close();
                             </div>
 
                             <div style="height: 1px; background-color: #e5e7eb; width: 100% ; "></div>
-                            <input type="submit" value="Guardar cambios" class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
+                            <input type="submit" value="Guardar cambios"
+                                class="text-white font-semibold p-2 px-3 bg-blue-500 rounded-md self-end">
                         </form>
                     </div>
                 </div>

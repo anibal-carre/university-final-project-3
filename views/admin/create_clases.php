@@ -34,7 +34,7 @@ if ($row) {
     echo "No se encontraron datos para el usuario con el ID proporcionado.";
 }
 
-//-----------------------------------------------------------------
+
 
 $consulta_maestros = "SELECT user_id, CONCAT(nombre, ' ', apellido) AS nombre_completo FROM usuarios WHERE rol = 'MAESTRO' AND materia_asignada = 0 ";
 $resultado_profesores = $conexion->query($consulta_maestros);
@@ -43,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_materia = $_POST["nombre_materia"];
     $profesor_asignado = $_POST["profesor"];
 
-    // Insertar la nueva materia en la tabla materias
+
     $consulta_insertar_materia = "INSERT INTO materias (nombre) VALUES ('$nombre_materia')";
     if ($conexion->query($consulta_insertar_materia) === TRUE) {
         $id_materia_insertada = $conexion->insert_id;
 
-        // Asignar la materia al profesor seleccionado
+
         $consulta_asignar_profesor = "UPDATE usuarios SET materia_asignada = $id_materia_insertada WHERE user_id = $profesor_asignado";
         if ($conexion->query($consulta_asignar_profesor) === TRUE) {
             header("Location: admin_clases.php");
@@ -147,7 +147,7 @@ $conexion->close();
 
                 <nav>
                     <li class="flex items-center gap-2 text-zinc-800 cursor-pointer" onclick="toggleLogoutMenu()">
-                        <!-- Nombre Dinamico -->
+
                         <?php echo $nombre ?>
                         <ul class="flex flex-col">
                             <span class="material-symbols-outlined">

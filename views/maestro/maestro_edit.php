@@ -35,7 +35,7 @@ if ($row) {
 }
 
 
-//----------------------------------------
+
 
 $alumno_id = $_GET['alumno_id'];
 $materia_asignada_id = $_GET['materia_id'];

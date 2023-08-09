@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["materias_seleccionadas
     $consulta_actualizar_materias_inscritas = "UPDATE usuarios SET materias_inscritas = '$nuevas_materias_inscritas' WHERE user_id = '$user_id'";
     $conexion->query($consulta_actualizar_materias_inscritas);
 
-    echo 'Actualización de inscripciones exitosa';
+
     header("Location: alumno_clases.php");
 }
 

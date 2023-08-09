@@ -34,8 +34,6 @@ if ($row) {
     echo "No se encontraron datos para el usuario con el ID proporcionado.";
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -44,20 +42,32 @@ if ($row) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../assets/logo.jpg">
 
     <title>University | Admin Permisos</title>
+
+    <style>
+        .custom-table {
+            border-collapse: collapse;
+            width: 100%;
+
+        }
+
+        .scrollable-container {
+
+            overflow: auto;
+            max-height: 800px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="w-screen h-screen flex bg-lightgray">
+    <div class="w-screen h-screen flex bg-lightgray" style="overflow: hidden;">
         <aside class="w-80 h-full bg-dark">
             <div class="flex items-center gap-3 p-5">
-                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px"
-                    height="60px">
+                <img class="rounded-full" src="../../assets/logo-aside.jpg" alt="university-logo" width="50px" height="60px">
                 <span class="text-white font-medium">Universidad</span>
             </div>
 
@@ -139,8 +149,7 @@ if ($row) {
                                     <li class="px-2 py-2 text-zinc-700 cursor-pointer ">Profile</li>
                                 </a>
 
-                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200"
-                                    style="color: #Dc2f19;">
+                                <a href="../logout.php" class="flex items-center gap-2 hover:bg-zinc-200" style="color: #Dc2f19;">
                                     <span class="material-symbols-outlined">
                                         logout
                                     </span>
@@ -163,8 +172,8 @@ if ($row) {
                     </p>
                 </div>
 
-                <div>
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <div class="scrollable-container">
+                    <table class="custom-table w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">

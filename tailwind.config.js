@@ -18,6 +18,9 @@ module.exports = {
       width: {
         200: "600px",
       },
+      maxHeight: {
+        800: "800px",
+      },
     },
   },
   plugins: [],

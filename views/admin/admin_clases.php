@@ -49,6 +49,20 @@ if ($row) {
     <link rel="icon" href="../../assets/logo.jpg">
     <link rel="stylesheet" href="../../styles.css">
     <title>University | Admin Clases</title>
+
+    <style>
+    .custom-table {
+        border-collapse: collapse;
+        width: 100%;
+
+    }
+
+    .scrollable-container {
+
+        overflow: auto;
+        max-height: 800px;
+    }
+    </style>
 </head>
 
 <body>
@@ -172,8 +186,8 @@ if ($row) {
 
                 </div>
 
-                <div>
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <div class="scrollable-container">
+                    <table class="custom-table w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
